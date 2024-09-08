@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option csharp_namespace = "DrawingService";
+
+package draw;
+
+service Drawer
+{
+    rpc DrawForClass (DrawForClassRequest) returns (DrawResponse);
+    rpc DrawForTeacher (DrawForTeacherRequest) returns (DrawResponse);
+    rpc DrawForAuditory (DrawForAuditoryRequest) returns (DrawResponse);
+}
+
+message DrawForClassRequest
+{
+    repeated ClassLesson lessons = 1;
+    Style drawStyle = 2;
+}
+
+message DrawForTeacherRequest
+{
+    repeated TeacherLesson lessons = 1;
+    Style drawStyle = 2;
+}
+
+message DrawForAuditoryRequest
+{
+    repeated AuditoryLesson lessons = 1;
+    Style drawStyle = 2;
+}
+
+message DrawResponse
+{
+    string pathToImage = 1;
+}
+
+enum Style
+{
+    Classic = 0;
+    Rose = 1;
+    PrintStream = 2;
+    Cyberpunk = 3;
+    Space = 4;
+}
+
+message ClassLesson
+{
+    int32 lessonNumber = 1;
+    string subject = 2;
+    string auditory = 3;
+    string teacher = 4;
+}
+
+message TeacherLesson
+{
+    int32 lessonNumber = 1;
+    string subject = 2;
+    string auditory = 3;
+    string class = 4;
+}
+
+message AuditoryLesson
+{
+    int32 lessonNumber = 1;
+    string subject = 2;
+    string class = 3;
+    string teacher = 4;
+}
+
+

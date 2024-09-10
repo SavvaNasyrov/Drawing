@@ -52,7 +52,8 @@ namespace Drawing.Services
                     };
             });
             var set = new SortedSet<DrawRow>(initalizer);
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{_configuration["DefaultImagePath"]}class{_classDrawingsCount}.png");
+            string path = $"{_configuration["DefaultImagePath"]}class{_classDrawingsCount}.png";
+            Console.WriteLine(path);
 
             await Task.Run( () => GeneralDrawer.Draw(set, PhysicalStyle.ToPhisycal(request.DrawStyle), path) );
             _classDrawingsCount++;

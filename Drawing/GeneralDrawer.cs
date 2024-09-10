@@ -125,14 +125,14 @@ namespace Drawing
                 }
             }
 
-            // Saving
-            var directory = Path.GetDirectoryName(pathToSave);
-
-            // Проверяем, существует ли директория, и создаем её, если нет
-            if (directory != null && !Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+//            // Saving
+//            var directory = Path.GetDirectoryName(pathToSave);
+//
+//            // Проверяем, существует ли директория, и создаем её, если нет
+//            if (directory != null && !Directory.Exists(directory))
+//            {
+//                Directory.CreateDirectory(directory);
+//            }
 
             using var image = SKImage.FromBitmap(bitmap);
             using var data = image.Encode(SKEncodedImageFormat.Png, 100);

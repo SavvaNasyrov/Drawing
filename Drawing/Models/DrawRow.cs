@@ -1,12 +1,14 @@
-﻿namespace Drawing.Models
+﻿using DrawingService;
+
+namespace Drawing.Models
 {
     public record DrawRow : IComparable<DrawRow>
     {
         public int Number { get; set; }
 
-        public GeneralizedLesson? First { get; init; }
+        public Lesson? First { get; init; }
 
-        public GeneralizedLesson? Second { get; init; }
+        public Lesson? Second { get; init; }
 
         public int CompareTo(DrawRow? other)
         {

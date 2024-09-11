@@ -19,9 +19,9 @@ namespace Drawing.Services
             _configuration = configuration;
         }
 
-        public override async Task<DrawResponse> DrawForClass(DrawForClassRequest request, ServerCallContext context)
+        public override async Task<DrawResponse> Draw(DrawRequest request, ServerCallContext context)
         {
-            if (_cache.TryGetValue(new CacheKey<ClassLesson>() { Style = request.DrawStyle, Lessons = request.Lessons }, out string? cachedPath))
+            if (_cache.TryGetValue(new CacheKey<Lesson>() { Style = request.DrawStyle, Lessons = request.Lessons }, out string? cachedPath))
             {
                 if (File.Exists(cachedPath))
                 {
@@ -29,7 +29,7 @@ namespace Drawing.Services
                 }
                 else
                 {
-                    _cache.Remove(new CacheKey<ClassLesson>() { Style = request.DrawStyle, Lessons = request.Lessons });
+                    _cache.Remove(new CacheKey<Lesson>() { Style = request.DrawStyle, Lessons = request.Lessons });
                     _classDrawingsCount--;
                 }
             }
@@ -40,14 +40,14 @@ namespace Drawing.Services
                 if (arr.Length < 2)
                     return new DrawRow() 
                     { 
-                        First = new GeneralizedLesson { FirstData = arr[0].Subject, SecondData = arr[0].Teacher, ThirdData = arr[0].Auditory } ,
+                        First = arr[0] ,
                         Number = arr[0].LessonNumber,
                     };
                 else
                     return new DrawRow()
                     {
-                        First = new GeneralizedLesson { FirstData = arr[0].Subject, SecondData = arr[0].Teacher, ThirdData = arr[0].Auditory },
-                        Second = new GeneralizedLesson { FirstData = arr[1].Subject, SecondData = arr[1].Teacher, ThirdData = arr[1].Auditory },
+                        First = arr[0],
+                        Second = arr[1],
                         Number = arr[0].LessonNumber,
                     };
             });
@@ -58,19 +58,9 @@ namespace Drawing.Services
             await Task.Run( () => GeneralDrawer.Draw(set, PhysicalStyle.ToPhisycal(request.DrawStyle), path) );
             _classDrawingsCount++;
 
-            AddToCache(new CacheKey<ClassLesson>() { Style = request.DrawStyle, Lessons = request.Lessons }, path);
+            AddToCache(new CacheKey<Lesson>() { Style = request.DrawStyle, Lessons = request.Lessons }, path);
 
             return new DrawResponse() { PathToImage = path };
-        }
-
-        public override Task<DrawResponse> DrawForTeacher(DrawForTeacherRequest request, ServerCallContext context)
-        {
-            return Task.FromResult(new DrawResponse { PathToImage = "null" });
-        }
-
-        public override Task<DrawResponse> DrawForAuditory(DrawForAuditoryRequest request, ServerCallContext context)
-        {
-            return Task.FromResult(new DrawResponse { PathToImage = "null" });
         }
 
         private T2 AddToCache<T, T2>(CacheKey<T> key, T2 value)

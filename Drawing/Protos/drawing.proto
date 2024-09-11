@@ -6,26 +6,21 @@ package draw;
 
 service Drawer
 {
-    rpc DrawForClass (DrawForClassRequest) returns (DrawResponse);
-    rpc DrawForTeacher (DrawForTeacherRequest) returns (DrawResponse);
-    rpc DrawForAuditory (DrawForAuditoryRequest) returns (DrawResponse);
+    rpc Draw (DrawRequest) returns (DrawResponse);
 }
 
-message DrawForClassRequest
+
+message Lesson
 {
-    repeated ClassLesson lessons = 1;
-    Style drawStyle = 2;
+    int32 lessonNumber = 1;
+    string first = 2;
+    string second = 3;
+    string third = 4;
 }
 
-message DrawForTeacherRequest
+message DrawRequest
 {
-    repeated TeacherLesson lessons = 1;
-    Style drawStyle = 2;
-}
-
-message DrawForAuditoryRequest
-{
-    repeated AuditoryLesson lessons = 1;
+    repeated Lesson lessons = 1;
     Style drawStyle = 2;
 }
 
@@ -41,30 +36,6 @@ enum Style
     PrintStream = 2;
     Cyberpunk = 3;
     Space = 4;
-}
-
-message ClassLesson
-{
-    int32 lessonNumber = 1;
-    string subject = 2;
-    string auditory = 3;
-    string teacher = 4;
-}
-
-message TeacherLesson
-{
-    int32 lessonNumber = 1;
-    string subject = 2;
-    string auditory = 3;
-    string class = 4;
-}
-
-message AuditoryLesson
-{
-    int32 lessonNumber = 1;
-    string subject = 2;
-    string class = 3;
-    string teacher = 4;
 }
 
 

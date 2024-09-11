@@ -1,4 +1,5 @@
 ﻿using Drawing.Models;
+using DrawingService;
 using SkiaSharp;
 
 namespace Drawing
@@ -72,7 +73,7 @@ namespace Drawing
                     {
                         DrawText(
                             canvas,
-                            row.First.ToString(),
+                            LessonToString(row.First),
                             new SKRect(
                                 left: indent + FIRST_COLOMN_WIDTH,
                                 top: ROW_HEIGHT * i,
@@ -85,7 +86,7 @@ namespace Drawing
                     {
                         DrawText(
                             canvas,
-                            row.First.ToString(),
+                            LessonToString(row.First),
                             new SKRect(
                                 left: indent + FIRST_COLOMN_WIDTH,
                                 top: ROW_HEIGHT * i,
@@ -96,7 +97,7 @@ namespace Drawing
 
                         DrawText(
                             canvas,
-                            row.Second.ToString(),
+                            LessonToString(row.Second),
                             new SKRect(
                                 left: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
                                 top: ROW_HEIGHT * i,
@@ -148,6 +149,11 @@ namespace Drawing
             float textY = area.Top + (area.Height - textBounds.Height) / 2 + textBounds.Height;
 
             canvas.DrawText(text, textX, textY, font, paint);
+        }
+
+        private static string LessonToString(Lesson lesson)
+        {
+            return $"{lesson.First}, {lesson.Second}, {lesson.Third}";
         }
     }
 }

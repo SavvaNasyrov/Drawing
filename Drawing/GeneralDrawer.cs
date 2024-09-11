@@ -37,6 +37,7 @@ namespace Drawing
 
                 if (style.PathToLeftSideImage != null)
                 {
+                    Console.WriteLine(Directory.GetCurrentDirectory());
                     using var imgLeftBitmap = SKBitmap.Decode(style.PathToLeftSideImage);
                     using var styleLeftImage = SKImage.FromBitmap(imgLeftBitmap);
                     canvas.DrawImage(styleLeftImage, new SKPoint(0, 0));
@@ -125,14 +126,13 @@ namespace Drawing
                 }
             }
 
-//            // Saving
-//            var directory = Path.GetDirectoryName(pathToSave);
-//
-//            // Проверяем, существует ли директория, и создаем её, если нет
-//            if (directory != null && !Directory.Exists(directory))
-//            {
-//                Directory.CreateDirectory(directory);
-//            }
+            // Saving
+            var directory = Path.GetDirectoryName(pathToSave);
+            // Проверяем, существует ли директория, и создаем её, если нет
+            if (directory != null && !Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
 
             using var image = SKImage.FromBitmap(bitmap);
             using var data = image.Encode(SKEncodedImageFormat.Png, 100);

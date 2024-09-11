@@ -48,8 +48,8 @@ namespace Drawing.Models
             Back = new SKColor(248, 242, 243),
             Fore = new SKColor(75, 9, 23),
             Borders = new SKColor(149, 112, 119),
-            PathToLeftSideImage = "./Drawing/StylesImages/roses.jpg",
-            PathToRightSideImage = "./Drawing/StylesImages/roses.jpg"
+            PathToLeftSideImage = "./StylesImages/roses.jpg",
+            PathToRightSideImage = "./StylesImages/roses.jpg"
         };
 
         private static PhysicalStyle PrintstreamStyle => new PhysicalStyle
@@ -59,8 +59,8 @@ namespace Drawing.Models
             Back = SKColors.White,
             Fore = SKColors.Black,
             Borders = new SKColor(153, 174, 190),
-            PathToLeftSideImage = "./Drawing/StylesImages/printstream.jpg",
-            PathToRightSideImage = "./Drawing/StylesImages/printstream.jpg"
+            PathToLeftSideImage = "./StylesImages/printstream.jpg",
+            PathToRightSideImage = "./StylesImages/printstream.jpg"
         };
 
         private static PhysicalStyle CyberpunkStyle => new PhysicalStyle
@@ -70,8 +70,8 @@ namespace Drawing.Models
             Back = new SKColor(137, 94, 207),
             Fore = new SKColor(216, 243, 249),
             Borders = new SKColor(216, 243, 249),
-            PathToLeftSideImage = "./Drawing/StylesImages/cyberpunkLeft.jpg",
-            PathToRightSideImage = "./Drawing/StylesImages/cyberpunkRight.jpg"
+            PathToLeftSideImage = "./StylesImages/cyberpunkLeft.jpg",
+            PathToRightSideImage = "./StylesImages/cyberpunkRight.jpg"
         };
 
         private static PhysicalStyle SpaceStyle => new PhysicalStyle
@@ -81,8 +81,8 @@ namespace Drawing.Models
             Back = new SKColor(28, 53, 78),
             Fore = new SKColor(255, 251, 226),
             Borders = new SKColor(236, 202, 170),
-            PathToLeftSideImage = "./Drawing/StylesImages/spaceLeft.jpg",
-            PathToRightSideImage = "./Drawing/StylesImages/spaceRight.jpg"
+            PathToLeftSideImage = "./StylesImages/spaceLeft.jpg",
+            PathToRightSideImage = "./StylesImages/spaceRight.jpg"
         };
     }
 }

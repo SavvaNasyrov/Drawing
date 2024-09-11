@@ -55,11 +55,11 @@ namespace Drawing
                 using var headForePaint = new SKPaint() { Color = style.HeadFore, IsAntialias = true };
                 using var headFont = new SKFont() { Size = 24 };
 
-                DrawText(canvas, HEADING_TEXT, new SKRect(indent, 0, indent + imageWidth, ROW_HEIGHT), headForePaint, headFont);
+                DrawText(canvas, HEADING_TEXT, new SKRect(indent, 0, indent * 2 + imageWidth, ROW_HEIGHT), headForePaint, headFont);
 
                 // Draw column border
                 using var borderPaint = new SKPaint() { Color = style.Borders };
-                canvas.DrawLine(indent + FIRST_COLOMN_WIDTH, ROW_HEIGHT, indent + FIRST_COLOMN_WIDTH, ROW_HEIGHT * 8, borderPaint);
+                canvas.DrawLine(indent + FIRST_COLOMN_WIDTH, 0, indent + FIRST_COLOMN_WIDTH, ROW_HEIGHT * 8, borderPaint);
 
                 // Draw rows
                 using var textPaint = new SKPaint() { Color = style.Fore, IsAntialias = true };

@@ -29,6 +29,7 @@ namespace Drawing.Models
                 Style.Cyberpunk => CyberpunkStyle,
                 Style.Space => SpaceStyle,
                 Style.Cbo => CBOStyle,
+                Style.RyanGosling => RyanGoslingStyle,
                 _ => throw new NotImplementedException(),
             };
         }
@@ -95,6 +96,17 @@ namespace Drawing.Models
             Borders = new SKColor(53, 104, 161),
             PathToLeftSideImage = "./StylesImages/trikolor.jpg",
             PathToRightSideImage = "./StylesImages/cBo.png"
+        };
+
+        private static PhysicalStyle RyanGoslingStyle => new PhysicalStyle
+        {
+            HeadFore = SKColors.White,
+            HeadBack = new SKColor(123, 80, 128),
+            Back = SKColors.White,
+            Fore = SKColors.Black,
+            Borders = SKColors.Gray,
+            PathToLeftSideImage = "./StylesImages/ryanGosling.jpg",
+            PathToRightSideImage = "./StylesImages/ryanGosling2.jpg"
         };
     }
 }

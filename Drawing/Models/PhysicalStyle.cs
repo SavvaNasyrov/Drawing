@@ -28,6 +28,7 @@ namespace Drawing.Models
                 Style.PrintStream => PrintstreamStyle,
                 Style.Cyberpunk => CyberpunkStyle,
                 Style.Space => SpaceStyle,
+                Style.Cbo => CBOStyle,
                 _ => throw new NotImplementedException(),
             };
         }
@@ -83,6 +84,17 @@ namespace Drawing.Models
             Borders = new SKColor(236, 202, 170),
             PathToLeftSideImage = "./StylesImages/spaceLeft.jpg",
             PathToRightSideImage = "./StylesImages/spaceRight.jpg"
+        };
+
+        private static PhysicalStyle CBOStyle => new PhysicalStyle
+        {
+            HeadFore = SKColors.White,
+            HeadBack = new SKColor(223, 29, 37),
+            Back = SKColors.White,
+            Fore = SKColors.Black,
+            Borders = new SKColor(53, 104, 161),
+            PathToLeftSideImage = "./StylesImages/trikolor.jpg",
+            PathToRightSideImage = "./StylesImages/cBo.png"
         };
     }
 }

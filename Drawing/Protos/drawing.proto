@@ -36,6 +36,8 @@ enum Style
     PrintStream = 2;
     Cyberpunk = 3;
     Space = 4;
+    CBO = 5;
+    One = 6;
 }
 
 

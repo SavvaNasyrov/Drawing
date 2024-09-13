@@ -34,8 +34,10 @@ namespace Drawing
                 height: imageHeight);
             using (var canvas = new SKCanvas(bitmap))
             {
+                // Fill background.
                 canvas.Clear(style.Back);
 
+                // Draw sides images if exists. 
                 if (style.PathToLeftSideImage != null)
                 {
                     Console.WriteLine(Directory.GetCurrentDirectory());
@@ -57,18 +59,18 @@ namespace Drawing
 
                 DrawText(canvas, HEADING_TEXT, new SKRect(indent, 0, indent * 2 + imageWidth, ROW_HEIGHT), headForePaint, headFont);
 
-                // Draw column border
+                // Draw column border.
                 using var borderPaint = new SKPaint() { Color = style.Borders };
                 canvas.DrawLine(indent + FIRST_COLOMN_WIDTH, 0, indent + FIRST_COLOMN_WIDTH, ROW_HEIGHT * 8, borderPaint);
 
-                // Draw rows
+                // Draw rows.
                 using var textPaint = new SKPaint() { Color = style.Fore, IsAntialias = true };
                 using var textFont = new SKFont() { Size = 24 };
 
                 int i = 1;
                 foreach (var row in lessons)
                 {
-                    // Main.
+                    // Main data.
                     if (row.First != null && row.Second == null)
                     {
                         DrawText(
@@ -127,9 +129,9 @@ namespace Drawing
                 }
             }
 
-            // Saving
+            // Saving.
             var directory = Path.GetDirectoryName(pathToSave);
-            // Проверяем, существует ли директория, и создаем её, если нет
+            // Проверяем, существует ли директория, и создаем её, если нет.
             if (directory != null && !Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);

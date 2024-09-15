@@ -40,7 +40,6 @@ namespace Drawing
                 // Draw sides images if exists. 
                 if (style.PathToLeftSideImage != null)
                 {
-                    Console.WriteLine(Directory.GetCurrentDirectory());
                     using var imgLeftBitmap = SKBitmap.Decode(style.PathToLeftSideImage);
                     using var styleLeftImage = SKImage.FromBitmap(imgLeftBitmap);
                     canvas.DrawImage(styleLeftImage, new SKPoint(0, 0));

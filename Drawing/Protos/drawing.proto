@@ -13,9 +13,11 @@ service Drawer
 message Lesson
 {
     int32 lessonNumber = 1;
-    string first = 2;
-    string second = 3;
-    string third = 4;
+    string lessonNumberView = 2;
+    string first = 3;
+    string second = 4;
+    string third = 5;
+    bool isDiff = 6;
 }
 
 message DrawRequest
@@ -36,7 +38,7 @@ enum Style
     PrintStream = 2;
     Cyberpunk = 3;
     Space = 4;
-    CBO = 5;
+    Capybara = 5;
     RyanGosling = 6;
 }
 

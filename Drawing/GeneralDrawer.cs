@@ -10,7 +10,7 @@ namespace Drawing
         {
             int indent = style.PathToLeftSideImage == null ? 0 : 40;
             const int ROW_HEIGHT = 70;
-            const int FIRST_COLOMN_WIDTH = 120;
+            const int FIRST_COLOMN_WIDTH = 200;
             const int SECOND_COLOMN_WIDTH = 840;
             const string HEADING_TEXT = "Уроки";
 
@@ -54,7 +54,7 @@ namespace Drawing
                 canvas.DrawRect(indent, 0, imageWidth, ROW_HEIGHT, headBackPaint);
 
                 using var headForePaint = new SKPaint() { Color = style.HeadFore, IsAntialias = true };
-                using var headFont = new SKFont() { Size = 24 };
+                using var headFont = new SKFont() { Size = 24, Embolden = true };
 
                 DrawText(canvas, HEADING_TEXT, new SKRect(indent, 0, indent * 2 + imageWidth, ROW_HEIGHT), headForePaint, headFont);
 
@@ -64,11 +64,15 @@ namespace Drawing
 
                 // Draw rows.
                 using var textPaint = new SKPaint() { Color = style.Fore, IsAntialias = true };
+                using var diffPaint = new SKPaint() { Color = style.Diff, IsAntialias = true };
                 using var textFont = new SKFont() { Size = 24 };
+
+                SKPaint buff;
 
                 int i = 1;
                 foreach (var row in lessons)
                 {
+                    buff = row.First != null && row.First.IsDiff ? diffPaint : textPaint;
                     // Main data.
                     if (row.First != null && row.Second == null)
                     {
@@ -80,7 +84,7 @@ namespace Drawing
                                 top: ROW_HEIGHT * i,
                                 right: indent + imageWidth,
                                 bottom: ROW_HEIGHT * (i + 1)),
-                            textPaint,
+                            buff,
                             textFont);
                     }
                     else if (row.First != null && row.Second != null)   
@@ -93,7 +97,7 @@ namespace Drawing
                                 top: ROW_HEIGHT * i,
                                 right: indent + imageWidth - SECOND_COLOMN_WIDTH / 2,
                                 bottom: ROW_HEIGHT * (i + 1)),
-                            textPaint,
+                            buff,
                             textFont);
 
                         DrawText(
@@ -104,7 +108,7 @@ namespace Drawing
                                 top: ROW_HEIGHT * i,
                                 right: indent + imageWidth,
                                 bottom: ROW_HEIGHT * (i + 1)),
-                            textPaint,
+                            buff,
                             textFont);
                     }
 
@@ -114,13 +118,13 @@ namespace Drawing
                     // Number.
                     DrawText(
                             canvas,
-                            i.ToString(),
+                            row.First?.LessonNumberView ?? "",
                             new SKRect(
                                 left: indent,
                                 top: ROW_HEIGHT * i,
                                 right: indent + FIRST_COLOMN_WIDTH,
                                 bottom: ROW_HEIGHT * (i + 1)),
-                            textPaint,
+                            buff,
                             textFont);
 
 

@@ -11,8 +11,6 @@ namespace Drawing.Services
 
         private readonly IConfiguration _configuration;
 
-        private static int _classDrawingsCount = 0;
-
         public DrawingServiceImpl(IMemoryCache cache, IConfiguration configuration)
         {
             _cache = cache;
@@ -21,7 +19,7 @@ namespace Drawing.Services
 
         public override async Task<DrawResponse> Draw(DrawRequest request, ServerCallContext context)
         {
-            if (_cache.TryGetValue(new CacheKey<Lesson>() { Style = request.DrawStyle, Lessons = request.Lessons }, out string? cachedPath))
+            if (_cache.TryGetValue(request.DrawStyle.ToString() + string.Join("", request.Lessons.Select( x => $"{x.First}{x.Second}{x.Third}")), out string? cachedPath))
             {
                 if (File.Exists(cachedPath))
                 {
@@ -30,7 +28,6 @@ namespace Drawing.Services
                 else
                 {
                     _cache.Remove(new CacheKey<Lesson>() { Style = request.DrawStyle, Lessons = request.Lessons });
-                    _classDrawingsCount--;
                 }
             }
 
@@ -52,18 +49,17 @@ namespace Drawing.Services
                     };
             });
             var set = new SortedSet<DrawRow>(initalizer);
-            string path = $"{_configuration["DefaultImagePath"]}class{_classDrawingsCount}.png";
+            string path = $"/images/{Guid.NewGuid().ToString()}.png";
             Console.WriteLine(path);
 
             await Task.Run( () => GeneralDrawer.Draw(set, PhysicalStyle.ToPhisycal(request.DrawStyle), path) );
-            _classDrawingsCount++;
 
-            AddToCache(new CacheKey<Lesson>() { Style = request.DrawStyle, Lessons = request.Lessons }, path);
+            AddToCache(request.DrawStyle.ToString() + string.Join("", request.Lessons.Select( x => $"{x.First}{x.Second}{x.Third}")), path);
 
             return new DrawResponse() { PathToImage = path };
         }
 
-        private T2 AddToCache<T, T2>(CacheKey<T> key, T2 value)
+        private T2 AddToCache<T, T2>(T key, T2 value)
         {
             static void OnEvicition(object key, object? value, EvictionReason reason, object? state)
             {
@@ -76,7 +72,6 @@ namespace Drawing.Services
                     catch { }
                 }
                 Console.WriteLine("Evicied");
-                _classDrawingsCount--;
             }
             var expiraton = TimeSpan.FromHours(float.Parse(_configuration["SlidingExpirationInHours"]));
             var opts = new MemoryCacheEntryOptions() { SlidingExpiration = expiraton };

@@ -54,8 +54,8 @@ namespace Drawing.Models
             Fore = new SKColor(75, 9, 23),
             Borders = new SKColor(149, 112, 119),
             Diff = new SKColor(244, 150, 34),
-            PathToLeftSideImage = "./Drawing/StylesImages/roses.jpg",
-            PathToRightSideImage = "./Drawing/StylesImages/roses.jpg"
+            PathToLeftSideImage = "./StylesImages/roses.jpg",
+            PathToRightSideImage = "./StylesImages/roses.jpg"
         };
 
         private static PhysicalStyle PrintstreamStyle => new PhysicalStyle
@@ -66,8 +66,8 @@ namespace Drawing.Models
             Fore = SKColors.Black,
             Borders = new SKColor(153, 174, 190),
             Diff = new SKColor(244, 150, 34),
-            PathToLeftSideImage = "./Drawing/StylesImages/printstream.jpg",
-            PathToRightSideImage = "./Drawing/StylesImages/printstream.jpg"
+            PathToLeftSideImage = "./StylesImages/printstream.jpg",
+            PathToRightSideImage = "./StylesImages/printstream.jpg"
         };
 
         private static PhysicalStyle CyberpunkStyle => new PhysicalStyle
@@ -78,8 +78,8 @@ namespace Drawing.Models
             Fore = SKColors.Black,
             Borders = new SKColor(45, 111, 122),
             Diff = new SKColor(0, 97, 112),
-            PathToLeftSideImage = "./Drawing/StylesImages/cyberpunk.png",
-            PathToRightSideImage = "./Drawing/StylesImages/cyberpunkRight.png"
+            PathToLeftSideImage = "./StylesImages/cyberpunk.png",
+            PathToRightSideImage = "./StylesImages/cyberpunkRight.png"
         };
 
         private static PhysicalStyle SpaceStyle => new PhysicalStyle
@@ -90,8 +90,8 @@ namespace Drawing.Models
             Fore = SKColors.White,
             Borders = new SKColor(121, 137, 153),
             Diff = new SKColor(253, 194, 111),
-            PathToLeftSideImage = "./Drawing/StylesImages/spaceLeft.jpg",
-            PathToRightSideImage = "./Drawing/StylesImages/space.jpg"
+            PathToLeftSideImage = "./StylesImages/spaceLeft.jpg",
+            PathToRightSideImage = "./StylesImages/space.jpg"
         };
 
         private static PhysicalStyle RyanGoslingStyle => new PhysicalStyle
@@ -102,8 +102,8 @@ namespace Drawing.Models
             Fore = SKColors.Black,
             Borders = new SKColor(45, 68, 69),
             Diff = new SKColor(249, 145, 24),
-            PathToLeftSideImage = "./Drawing/StylesImages/bladeruiner.jpg",
-            PathToRightSideImage = "./Drawing/StylesImages/bladeruinerRight.jpg"
+            PathToLeftSideImage = "./StylesImages/bladeruiner.jpg",
+            PathToRightSideImage = "./StylesImages/bladeruinerRight.jpg"
         };
 
         private static PhysicalStyle CapyStyle => new PhysicalStyle
@@ -114,8 +114,8 @@ namespace Drawing.Models
             Fore = SKColors.Black,
             Borders = new SKColor(255, 202, 0),
             Diff = new SKColor(15, 128, 64),
-            PathToLeftSideImage = "./Drawing/StylesImages/capy.png",
-            PathToRightSideImage = "./Drawing/StylesImages/capy.png"
+            PathToLeftSideImage = "./StylesImages/capy.png",
+            PathToRightSideImage = "./StylesImages/capy.png"
         };
     }
 }

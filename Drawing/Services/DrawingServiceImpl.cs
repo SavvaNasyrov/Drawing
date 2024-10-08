@@ -33,23 +33,41 @@ namespace Drawing.Services
 
             var initalizer = request.Lessons.GroupBy(x => x.LessonNumber).Select(x =>
             {
-                var arr = x.ToArray();
-                if (arr.Length < 2)
-                    return new DrawRow() 
-                    { 
-                        First = arr[0] ,
-                        Number = arr[0].LessonNumber,
-                    };
-                else
+                if (x.Count() >= 2)
+                {
                     return new DrawRow()
                     {
-                        First = arr[0],
-                        Second = arr[1],
-                        Number = arr[0].LessonNumber,
+                        IsDivided = true,
+                        First = x.First(),
+                        Second = x.Last(),
+                        Number = x.First().LessonNumber
                     };
+                }
+                else
+                {
+                    if (x.First().Subgroup != 0)
+                    {
+                        return new DrawRow()
+                        {
+                            IsDivided = true,
+                            First = x.First().Subgroup == 1 ? x.First() : null,
+                            Second = x.First().Subgroup == 2 ? x.First() : null,
+                            Number = x.First().LessonNumber,
+                        };
+                    }
+                    else
+                    {
+                        return new DrawRow()
+                        {
+                            IsDivided = false,
+                            First = x.First(),
+                            Number = x.First().LessonNumber
+                        };
+                    }
+                }
             });
             var set = new SortedSet<DrawRow>(initalizer);
-            string path = $"/images/{Guid.NewGuid().ToString()}.png";
+            string path = $"/images/{Guid.NewGuid()}.png";
             Console.WriteLine(path);
 
             await Task.Run( () => GeneralDrawer.Draw(set, PhysicalStyle.ToPhisycal(request.DrawStyle), path) );

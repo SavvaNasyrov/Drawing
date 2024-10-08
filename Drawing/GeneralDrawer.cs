@@ -75,7 +75,7 @@ namespace Drawing
                 {
                     buff = row.First != null && row.First.IsDiff ? diffPaint : textPaint;
                     // Main data.
-                    if (row.First != null && row.Second == null)
+                    if (!row.IsEmpty && !row.IsDivided)
                     {
                         DrawText(
                             canvas,
@@ -88,7 +88,7 @@ namespace Drawing
                             buff,
                             textFont);
                     }
-                    else if (row.First != null && row.Second != null)   
+                    else if (!row.IsEmpty && row.First != null && row.Second != null)   
                     {
                         if (Math.Max(LessonToString(row.First).Length, LessonToString(row.Second).Length) <= 25)
                         {
@@ -114,7 +114,7 @@ namespace Drawing
                                 buff,
                                 textFont);
                         }
-                        else
+                        else if (!row.IsEmpty)
                         {
                             DrawText(
                                 canvas,
@@ -140,6 +140,37 @@ namespace Drawing
 
                             canvas.DrawLine(indent + FIRST_COLOMN_WIDTH, ROW_HEIGHT * i + ROW_HEIGHT / 2, indent + imageWidth, ROW_HEIGHT * i + ROW_HEIGHT / 2, dashedPaint);
                         }
+                    }
+                    else if (row.First != null || row.Second != null)
+                    {
+                        if (row.First != null)
+                        {
+                            DrawText(
+                                    canvas,
+                                    LessonToString(row.First),
+                                    new SKRect(
+                                        left: indent + FIRST_COLOMN_WIDTH,
+                                        top: ROW_HEIGHT * i,
+                                        right: indent + imageWidth,
+                                        bottom: ROW_HEIGHT * i + ROW_HEIGHT / 2),
+                                    buff,
+                                    textFont);
+                        }
+                        else
+                        {
+                            DrawText(
+                                canvas,
+                                LessonToString(row.Second),
+                                new SKRect(
+                                    left: indent + FIRST_COLOMN_WIDTH,
+                                    top: ROW_HEIGHT * i + ROW_HEIGHT / 2,
+                                    right: indent + imageWidth,
+                                    bottom: ROW_HEIGHT * (i + 1)),
+                                buff,
+                                textFont);
+                        }
+
+                        canvas.DrawLine(indent + FIRST_COLOMN_WIDTH, ROW_HEIGHT * i + ROW_HEIGHT / 2, indent + imageWidth, ROW_HEIGHT * i + ROW_HEIGHT / 2, dashedPaint);
                     }
 
                     // Line.

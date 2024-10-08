@@ -18,6 +18,7 @@ message Lesson
     string second = 4;
     string third = 5;
     bool isDiff = 6;
+    int32 subgroup = 7;
 }
 
 message DrawRequest

@@ -6,6 +6,8 @@ namespace Drawing.Models
     {
         public int Number { get; set; }
 
+        public bool IsDivided { get; set; }
+
         public Lesson? First { get; init; }
 
         public Lesson? Second { get; init; }
@@ -14,5 +16,7 @@ namespace Drawing.Models
         {
             return other == null ? -1 : Number.CompareTo(other.Number);
         }
+
+        public bool IsEmpty => First == null && Second == null;
     }
 }

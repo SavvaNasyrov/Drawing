@@ -40,6 +40,8 @@ namespace Drawing
                 // Draw sides images if exists. 
                 if (style.PathToLeftSideImage != null)
                 {
+                    Console.WriteLine(string.Join(" ", Directory.GetDirectories(Directory.GetCurrentDirectory())));
+
                     using var imgLeftBitmap = SKBitmap.Decode(style.PathToLeftSideImage);
                     using var styleLeftImage = SKImage.FromBitmap(imgLeftBitmap);
                     canvas.DrawImage(styleLeftImage, new SKPoint(0, 0));
@@ -201,32 +203,88 @@ namespace Drawing
                     {
                         if (row.FirstLesson != null)
                         {
-                            DrawText(
+                            if (LessonToString(row.FirstLesson).Length <= 25)
+                            {
+                                DrawText(
                                     canvas,
                                     LessonToString(row.FirstLesson),
                                     new SKRect(
                                         left: indent + FIRST_COLOMN_WIDTH,
                                         top: ROW_HEIGHT * i,
-                                        right: indent + imageWidth,
+                                        right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                                        bottom: ROW_HEIGHT * (i + 1)),
+                                    buff,
+                                    textFont);
+                            }
+                            else
+                            {
+                                DrawText(
+                                    canvas,
+                                    row.FirstLesson.First,
+                                    new SKRect(
+                                        left: indent + FIRST_COLOMN_WIDTH,
+                                        top: ROW_HEIGHT * i,
+                                        right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
                                         bottom: ROW_HEIGHT * i + ROW_HEIGHT / 2),
                                     buff,
                                     textFont);
+                                DrawText(
+                                    canvas,
+                                    row.FirstLesson.Second + ", " + row.FirstLesson.Third,
+                                    new SKRect(
+                                        left: indent + FIRST_COLOMN_WIDTH,
+                                        top: ROW_HEIGHT * i + ROW_HEIGHT / 2,
+                                        right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                                        bottom: ROW_HEIGHT * i + ROW_HEIGHT),
+                                    buff,
+                                    textFont);
+                            }
                         }
                         else
                         {
-                            DrawText(
-                                canvas,
-                                LessonToString(row.SecondLesson),
-                                new SKRect(
-                                    left: indent + FIRST_COLOMN_WIDTH,
-                                    top: ROW_HEIGHT * i + ROW_HEIGHT / 2,
-                                    right: indent + imageWidth,
-                                    bottom: ROW_HEIGHT * (i + 1)),
-                                buff,
-                                textFont);
+                            if (LessonToString(row.SecondLesson).Length <= 25)
+                            {
+                                DrawText(
+                                    canvas,
+                                    LessonToString(row.SecondLesson),
+                                    new SKRect(
+                                        left: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                                        top: ROW_HEIGHT * i,
+                                        right: indent + imageWidth,
+                                        bottom: ROW_HEIGHT * (i + 1)),
+                                    buff,
+                                    textFont);
+                            }
+                            else
+                            {
+                                DrawText(
+                                    canvas,
+                                    row.SecondLesson.First,
+                                    new SKRect(
+                                        left: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                                        top: ROW_HEIGHT * i,
+                                        right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH,
+                                        bottom: ROW_HEIGHT * i + ROW_HEIGHT / 2),
+                                    buff,
+                                    textFont);
+                                DrawText(
+                                    canvas,
+                                    row.SecondLesson.Second + ", " + row.SecondLesson.Third,
+                                    new SKRect(
+                                        left: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                                        top: ROW_HEIGHT * i + ROW_HEIGHT / 2,
+                                        right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH,
+                                        bottom: ROW_HEIGHT * i + ROW_HEIGHT),
+                                    buff,
+                                    textFont);
+                            }
                         }
-
-                        canvas.DrawLine(indent + FIRST_COLOMN_WIDTH, ROW_HEIGHT * i + ROW_HEIGHT / 2, indent + imageWidth, ROW_HEIGHT * i + ROW_HEIGHT / 2, dashedPaint);
+                        canvas.DrawLine(
+                            indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                            ROW_HEIGHT * i,
+                            indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                            ROW_HEIGHT * i + ROW_HEIGHT,
+                            dashedPaint);
                     }
 
                     // Line.

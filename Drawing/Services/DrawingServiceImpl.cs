@@ -77,19 +77,25 @@ namespace Drawing.Services
                         Number = x.First().LessonNumber
                     };
                 }
-                else
+                else if (x.First().Subgroup == 1 || x.First().Subgroup == 2)
                 {
                     var firstLesson = x.FirstOrDefault(x => x.Subgroup == 1);
                     var secondLesson = x.FirstOrDefault(x => x.Subgroup == 2);
 
-                    if (firstLesson == null && secondLesson == null)
-                        firstLesson = x.First();
-
+                    return new DrawRow()
+                    {
+                        IsDivided = true,
+                        FirstLesson = firstLesson,
+                        SecondLesson = secondLesson,
+                        Number = x.First().LessonNumber,
+                    };
+                }
+                else
+                {
                     return new DrawRow()
                     {
                         IsDivided = false,
-                        FirstLesson = firstLesson,
-                        SecondLesson = secondLesson,
+                        FirstLesson = x.First(),
                         Number = x.First().LessonNumber,
                     };
                 }

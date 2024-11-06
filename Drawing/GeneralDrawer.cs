@@ -18,7 +18,7 @@ namespace Drawing
             int imageHeight = ROW_HEIGHT * 8;
 
             var lessonsDict = lessons.ToDictionary(x => x.Number, y => y);
-            var buffer = new List<DrawRow>(capacity: 7); 
+            var buffer = new List<DrawRow>(capacity: 7);
             for (int i = 1; i < 8; i++)
             {
                 bool has = lessonsDict.TryGetValue(i, out var row);
@@ -30,7 +30,7 @@ namespace Drawing
             lessons = new SortedSet<DrawRow>(buffer);
 
             using var bitmap = new SKBitmap(
-                width: imageWidth+ 2 * indent,
+                width: imageWidth + 2 * indent,
                 height: imageHeight);
             using (var canvas = new SKCanvas(bitmap))
             {
@@ -51,12 +51,12 @@ namespace Drawing
 
                 // Draw heading.
                 using var headBackPaint = new SKPaint() { Color = style.HeadBack, Style = SKPaintStyle.Fill };
-                canvas.DrawRect(indent, 0, imageWidth, ROW_HEIGHT, headBackPaint);
+                canvas.DrawRect(indent, 0, indent + imageWidth, ROW_HEIGHT, headBackPaint);
 
                 using var headForePaint = new SKPaint() { Color = style.HeadFore, IsAntialias = true };
                 using var headFont = new SKFont() { Size = 24, Embolden = true };
 
-                DrawText(canvas, HEADING_TEXT, new SKRect(indent, 0, indent * 2 + imageWidth, ROW_HEIGHT), headForePaint, headFont);
+                DrawText(canvas, HEADING_TEXT, new SKRect(indent + FIRST_COLOMN_WIDTH, 0, indent + imageWidth, ROW_HEIGHT), headForePaint, headFont);
 
                 // Draw column border.
                 using var borderPaint = new SKPaint() { Color = style.Borders };
@@ -73,28 +73,56 @@ namespace Drawing
                 int i = 1;
                 foreach (var row in lessons)
                 {
-                    buff = row.First != null && row.First.IsDiff ? diffPaint : textPaint;
+                    buff = row.FirstLesson != null && row.FirstLesson.IsDiff ? diffPaint : textPaint;
                     // Main data.
                     if (!row.IsEmpty && !row.IsDivided)
                     {
-                        DrawText(
-                            canvas,
-                            LessonToString(row.First),
-                            new SKRect(
-                                left: indent + FIRST_COLOMN_WIDTH,
-                                top: ROW_HEIGHT * i,
-                                right: indent + imageWidth,
-                                bottom: ROW_HEIGHT * (i + 1)),
-                            buff,
-                            textFont);
-                    }
-                    else if (!row.IsEmpty && row.First != null && row.Second != null)   
-                    {
-                        if (Math.Max(LessonToString(row.First).Length, LessonToString(row.Second).Length) <= 25)
+                        var lesson = row.FirstLesson ?? row.SecondLesson;
+                        if (LessonToString(lesson).Length <= 56)
                         {
                             DrawText(
                                 canvas,
-                                LessonToString(row.First),
+                                LessonToString(lesson),
+                                new SKRect(
+                                    left: indent + FIRST_COLOMN_WIDTH,
+                                    top: ROW_HEIGHT * i,
+                                    right: indent + imageWidth,
+                                    bottom: ROW_HEIGHT * i + ROW_HEIGHT),
+                                buff,
+                                textFont);
+                        }
+                        else
+                        {
+                            DrawText(
+                                canvas,
+                                lesson.First,
+                                new SKRect(
+                                    left: indent + FIRST_COLOMN_WIDTH,
+                                    top: ROW_HEIGHT * i,
+                                    right: indent + imageWidth,
+                                    bottom: ROW_HEIGHT * i + ROW_HEIGHT / 2),
+                                buff,
+                                textFont);
+
+                            DrawText(
+                               canvas,
+                               lesson.Second + ", " + lesson.Third,
+                               new SKRect(
+                                   left: indent + FIRST_COLOMN_WIDTH,
+                                   top: ROW_HEIGHT * i + ROW_HEIGHT / 2,
+                                   right: indent + imageWidth,
+                                   bottom: ROW_HEIGHT * (i + 1)),
+                               buff,
+                               textFont);
+                        }
+                    }
+                    else if (!row.IsEmpty && row.FirstLesson != null && row.SecondLesson != null)
+                    {
+                        if (Math.Max(LessonToString(row.FirstLesson).Length, LessonToString(row.SecondLesson).Length) <= 25)
+                        {
+                            DrawText(
+                                canvas,
+                                LessonToString(row.FirstLesson),
                                 new SKRect(
                                     left: indent + FIRST_COLOMN_WIDTH,
                                     top: ROW_HEIGHT * i,
@@ -105,7 +133,7 @@ namespace Drawing
 
                             DrawText(
                                 canvas,
-                                LessonToString(row.Second),
+                                LessonToString(row.SecondLesson),
                                 new SKRect(
                                     left: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
                                     top: ROW_HEIGHT * i,
@@ -116,38 +144,66 @@ namespace Drawing
                         }
                         else if (!row.IsEmpty)
                         {
+                            // First lesson
                             DrawText(
                                 canvas,
-                                LessonToString(row.First),
+                                row.FirstLesson.First,
                                 new SKRect(
                                     left: indent + FIRST_COLOMN_WIDTH,
                                     top: ROW_HEIGHT * i,
-                                    right: indent + imageWidth,
+                                    right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
                                     bottom: ROW_HEIGHT * i + ROW_HEIGHT / 2),
                                 buff,
                                 textFont);
 
                             DrawText(
                                 canvas,
-                                LessonToString(row.Second),
+                                row.FirstLesson.Second + ", " + row.FirstLesson.Third,
                                 new SKRect(
                                     left: indent + FIRST_COLOMN_WIDTH,
                                     top: ROW_HEIGHT * i + ROW_HEIGHT / 2,
-                                    right: indent + imageWidth,
-                                    bottom: ROW_HEIGHT * (i + 1)),
+                                    right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                                    bottom: ROW_HEIGHT * i + ROW_HEIGHT),
                                 buff,
                                 textFont);
 
-                            canvas.DrawLine(indent + FIRST_COLOMN_WIDTH, ROW_HEIGHT * i + ROW_HEIGHT / 2, indent + imageWidth, ROW_HEIGHT * i + ROW_HEIGHT / 2, dashedPaint);
+                            // Second lesson
+                            DrawText(
+                                canvas,
+                                row.SecondLesson.First,
+                                new SKRect(
+                                    left: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                                    top: ROW_HEIGHT * i,
+                                    right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH,
+                                    bottom: ROW_HEIGHT * i + ROW_HEIGHT / 2),
+                                buff,
+                                textFont);
+
+                            DrawText(
+                                canvas,
+                                row.SecondLesson.Second + ", " + row.FirstLesson.Third,
+                                new SKRect(
+                                    left: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                                    top: ROW_HEIGHT * i + ROW_HEIGHT / 2,
+                                    right: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH,
+                                    bottom: ROW_HEIGHT * i + ROW_HEIGHT),
+                                buff,
+                                textFont);
                         }
+                        canvas.DrawLine(
+                            indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                            ROW_HEIGHT * i,
+                            indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
+                            ROW_HEIGHT * i + ROW_HEIGHT,
+                            dashedPaint);
                     }
-                    else if (row.First != null || row.Second != null)
+                    else if (row.FirstLesson != null || row.SecondLesson != null)
                     {
-                        if (row.First != null)
+                        if (row.FirstLesson != null)
                         {
                             DrawText(
                                     canvas,
-                                    LessonToString(row.First),
+                                    LessonToString(row.FirstLesson),
                                     new SKRect(
                                         left: indent + FIRST_COLOMN_WIDTH,
                                         top: ROW_HEIGHT * i,
@@ -160,7 +216,7 @@ namespace Drawing
                         {
                             DrawText(
                                 canvas,
-                                LessonToString(row.Second),
+                                LessonToString(row.SecondLesson),
                                 new SKRect(
                                     left: indent + FIRST_COLOMN_WIDTH,
                                     top: ROW_HEIGHT * i + ROW_HEIGHT / 2,
@@ -179,7 +235,7 @@ namespace Drawing
                     // Number.
                     DrawText(
                             canvas,
-                            row.First?.LessonNumberView ?? "",
+                            row.FirstLesson?.LessonNumberView ?? "",
                             new SKRect(
                                 left: indent,
                                 top: ROW_HEIGHT * i,

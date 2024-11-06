@@ -9,7 +9,7 @@ namespace Drawing.Models
 
         public required SKColor HeadFore { get; init; }
 
-        public required SKColor Back {  get; init; }
+        public required SKColor Back { get; init; }
 
         public required SKColor Fore { get; init; }
 
@@ -38,11 +38,11 @@ namespace Drawing.Models
 
         private static PhysicalStyle ClassicStyle => new PhysicalStyle
         {
-            HeadFore = SKColors.White ,
-            HeadBack = new SKColor(0, 128, 0) ,
-            Back = SKColors.White ,
-            Fore = SKColors.Black ,
-            Borders = SKColors.Gray ,
+            HeadFore = SKColors.White,
+            HeadBack = new SKColor(0, 128, 0),
+            Back = SKColors.White,
+            Fore = SKColors.Black,
+            Borders = SKColors.Gray,
             Diff = new SKColor(244, 150, 34)
         };
 

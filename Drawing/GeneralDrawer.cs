@@ -53,7 +53,7 @@ namespace Drawing
 
                 // Draw heading.
                 using var headBackPaint = new SKPaint() { Color = style.HeadBack, Style = SKPaintStyle.Fill };
-                canvas.DrawRect(indent, 0, indent + imageWidth, ROW_HEIGHT, headBackPaint);
+                canvas.DrawRect(indent, 0, imageWidth, ROW_HEIGHT, headBackPaint);
 
                 using var headForePaint = new SKPaint() { Color = style.HeadFore, IsAntialias = true };
                 using var headFont = new SKFont() { Size = 24, Embolden = true };

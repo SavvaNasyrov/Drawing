@@ -183,7 +183,7 @@ namespace Drawing
 
                             DrawText(
                                 canvas,
-                                row.SecondLesson.Second + ", " + row.FirstLesson.Third,
+                                row.SecondLesson.Second + ", " + row.SecondLesson.Third,
                                 new SKRect(
                                     left: indent + FIRST_COLOMN_WIDTH + SECOND_COLOMN_WIDTH / 2,
                                     top: ROW_HEIGHT * i + ROW_HEIGHT / 2,

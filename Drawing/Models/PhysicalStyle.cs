@@ -32,6 +32,7 @@ namespace Drawing.Models
                 Style.Space => SpaceStyle,
                 Style.RyanGosling => RyanGoslingStyle,
                 Style.Capybara => CapyStyle,
+                Style.ClashRoyal => ClashRoyal,
                 _ => throw new NotImplementedException(),
             };
         }
@@ -116,6 +117,18 @@ namespace Drawing.Models
             Diff = new SKColor(15, 128, 64),
             PathToLeftSideImage = "./Drawing/StylesImages/capy.png",
             PathToRightSideImage = "./Drawing/StylesImages/capy.png"
+        };
+
+        private static PhysicalStyle ClashRoyal => new PhysicalStyle
+        {
+            HeadFore = SKColors.White,
+            HeadBack = new SKColor(28, 22, 210),
+            Back = new SKColor(45, 133, 243),
+            Fore = SKColors.White,
+            Borders = new SKColor(0, 0, 0),
+            Diff = new SKColor(247, 219, 28),
+            PathToLeftSideImage = "./Drawing/StylesImages/clash-left.png",
+            PathToRightSideImage = "./Drawing/StylesImages/clash-right.png"
         };
     }
 }

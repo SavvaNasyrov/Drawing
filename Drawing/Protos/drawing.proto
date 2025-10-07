@@ -41,6 +41,7 @@ enum Style
     Space = 4;
     Capybara = 5;
     RyanGosling = 6;
+    ClashRoyal = 7;
 }
 
 

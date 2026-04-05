@@ -42,6 +42,7 @@ enum Style
     Capybara = 5;
     RyanGosling = 6;
     ClashRoyal = 7;
+    PickMe = 8;
 }
 
 

@@ -43,6 +43,7 @@ enum Style
     RyanGosling = 6;
     ClashRoyal = 7;
     PickMe = 8;
+    Minions = 9;
 }
 
 
